@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/TopicSelection.css";
 
@@ -11,12 +11,23 @@ function TopicSelection() {
         { name: "Python", image: "/images/python.jpeg" },
         { name: "Data Structures", image: "/images/ds.jpeg" }
     ];
-    
+
     const navigate = useNavigate();
+    const [loadedImages, setLoadedImages] = useState({});
+
+    useEffect(() => {
+        // Preload images and mark as loaded
+        topics.forEach(topic => {
+            const img = new Image();
+            img.src = topic.image;
+            img.onload = () => {
+                setLoadedImages(prev => ({ ...prev, [topic.image]: true }));
+            };
+        });
+    }, []);
 
     const handleSelect = (topic) => {
         navigate(`/topics/${topic}`);
-
     };
 
     return (
@@ -29,7 +40,11 @@ function TopicSelection() {
                         className="topic-box"
                         onClick={() => handleSelect(topic.name)}
                     >
-                        <img src={topic.image} alt={topic.name} className="topic-image" />
+                        {loadedImages[topic.image] ? (
+                            <img src={topic.image} alt={topic.name} className="topic-image" />
+                        ) : (
+                            <div className="image-placeholder">Loading...</div>
+                        )}
                         <div className="overlay">
                             <span className="topic-text">{topic.name}</span>
                         </div>
