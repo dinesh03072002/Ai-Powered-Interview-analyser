@@ -8,7 +8,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
-    min-width: 600px; 
+    min-width: 600px;
     max-width: 900px;
     margin: 20px auto;
 }
@@ -30,43 +30,66 @@
     box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
 }
 
+/* Button group to place buttons side by side */
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style for both mic and submit buttons */
+.mic-button, 
 .submit-button {
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
+    flex: 1; /* Ensures buttons take equal space */
+    max-width: 150px; /* Prevents them from stretching too much */
     padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Mic Button */
+.mic-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.mic-button:hover {
+    background-color: #218838;
+}
+
+.mic-button.listening {
+    background-color: #ffc107;
+    color: black;
+    cursor: not-allowed;
+}
+
+/* Submit Button */
+.submit-button {
+    background-color: #007bff;
+    color: white;
 }
 
 .submit-button:hover {
     background-color: #0056b3;
 }
 
-.submit-button {
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease, width 0.3s ease;
-    width: 120px; 
-    position: relative;
-}
-
 .submit-button.loading {
     width: 140px;
     cursor: not-allowed;
 }
+
+.submit-button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+}
+
+/* Loading Spinner */
 .loading-spinner {
     width: 16px;
     height: 16px;
@@ -75,21 +98,24 @@
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-.submit-button:disabled {
-    background-color: #b0c4de;
-    cursor: not-allowed;
-}
 
+/* Mobile responsiveness */
 @media (max-width: 480px) {
     .answer-container {
         width: 100%;
-        min-width: unset; 
+        min-width: unset;
         max-width: 100%;
         padding: 15px;
         box-shadow: none;
+    }
+
+    .button-group {
+        flex-direction: column; /* Stack buttons on smaller screens */
+        gap: 10px;
     }
 }

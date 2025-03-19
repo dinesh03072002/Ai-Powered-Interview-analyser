@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./styles/AnswerInput.css"; // Import the CSS file
+import "./styles/AnswerInput.css"; 
 
 function AnswerInput({ question, setFeedback, answer, setAnswer }) {
     const [loading, setLoading] = useState(false);
     const [listening, setListening] = useState(false);
 
-    // Function to handle voice input
     const startListening = () => {
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
         recognition.lang = "en-US";
@@ -46,6 +45,9 @@ function AnswerInput({ question, setFeedback, answer, setAnswer }) {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Type your answer or use voice input..."
+                onPaste={(e) => e.preventDefault()}  // Disable paste
+                onCopy={(e) => e.preventDefault()}   // Disable copy
+                onCut={(e) => e.preventDefault()}    // Disable cut
             />
             <div className="button-group">
                 <button className={`mic-button ${listening ? "listening" : ""}`} onClick={startListening} disabled={listening}>
